@@ -194,6 +194,9 @@ public class LottieView: NSObject, FlutterPlatformView, FlutterStreamHandler {
             setValue(type: type, value: value, keyPath: keyPath)
             result(nil)
             break
+        case "cacheClear":
+            result(nil)
+            break
         default:
             result(FlutterMethodNotImplemented)
             break
