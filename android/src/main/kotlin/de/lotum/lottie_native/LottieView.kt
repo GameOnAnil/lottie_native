@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieComposition
+import com.airbnb.lottie.LottieCompositionFactory
 import com.airbnb.lottie.LottieDrawable
 import com.airbnb.lottie.LottieOnCompositionLoadedListener
 import com.airbnb.lottie.LottieProperty
@@ -22,6 +23,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.platform.PlatformView
+import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
 
 class LottieView internal constructor(
@@ -168,6 +170,10 @@ class LottieView internal constructor(
                 val keyPath = args["keyPath"] as String
                 val type = args["type"] as String
                 setValue(type, value, keyPath)
+                result.success(null)
+            }
+            "cacheClear" -> {
+                LottieCompositionFactory.clearCache(this.animationView.context)
                 result.success(null)
             }
             else -> result.notImplemented()

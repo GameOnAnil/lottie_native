@@ -28,7 +28,7 @@ class LottieController {
   Future<void> dispose() async {
     try {
       await stop(); // Optional: stop animation
-      await _channel.invokeMethod('dispose');
+      await _channel.invokeMethod('clearCache');
     } catch (e) {
       // Log error or ignore if already disposed
     }
