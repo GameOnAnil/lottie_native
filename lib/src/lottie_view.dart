@@ -51,13 +51,15 @@ class LottieView extends StatefulWidget {
   final String? filePath;
   final String? json;
 
+  final LottieViewCreatedCallback? onViewCreated;
+
   @override
   _LottieViewState createState() => _LottieViewState();
-
-  final LottieViewCreatedCallback? onViewCreated;
 }
 
 class _LottieViewState extends State<LottieView> {
+  LottieController? _controller;
+
   @override
   Widget build(BuildContext context) {
     final creationParams = {
@@ -85,19 +87,23 @@ class _LottieViewState extends State<LottieView> {
           creationParamsCodec: StandardMessageCodec(),
           onPlatformViewCreated: onPlatformViewCreated,
         );
-      case TargetPlatform.macOS:
-      case TargetPlatform.fuchsia:
-      case TargetPlatform.linux:
-      case TargetPlatform.windows:
-        return new Text(
+
+      default:
+        return Text(
           '$defaultTargetPlatform is not yet supported by this plugin',
         );
     }
   }
 
-  Future<void> onPlatformViewCreated(id) async {
-    if (widget.onViewCreated != null) {
-      widget.onViewCreated!(new LottieController(id));
-    }
+  Future<void> onPlatformViewCreated(int id) async {
+    _controller = LottieController(id);
+    widget.onViewCreated?.call(_controller!);
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller and associated resources
+    _controller?.dispose(); // You must implement this in LottieController
+    super.dispose();
   }
 }
