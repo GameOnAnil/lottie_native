@@ -86,6 +86,7 @@ class LottieView internal constructor(
         animationView.cancelAnimation()
         channel.setMethodCallHandler(null)
         onStateChangeEventChannel.setStreamHandler(null)
+        LottieCompositionFactory.clearCache(this.animationView.context)
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
