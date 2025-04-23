@@ -87,6 +87,7 @@ class LottieView internal constructor(
         channel.setMethodCallHandler(null)
         onStateChangeEventChannel.setStreamHandler(null)
         LottieCompositionFactory.clearCache(this.animationView.context)
+        print("dispose activity");
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -174,6 +175,7 @@ class LottieView internal constructor(
                 result.success(null)
             }
             "cacheClear" -> {
+                print("clear method called");
                 LottieCompositionFactory.clearCache(this.animationView.context)
                 result.success(null)
             }

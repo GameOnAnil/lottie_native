@@ -26,12 +26,12 @@ class LottieController {
 
   // Main cleanup method
   Future<void> dispose() async {
-    // try {
-    //   // await stop(); // Optional: stop animation
-    //   await _channel.invokeMethod('clearCache');
-    // } catch (e) {
-    //   // Log error or ignore if already disposed
-    // }
+    try {
+      // await stop(); // Optional: stop animation
+      await _channel.invokeMethod('clearCache');
+    } catch (e) {
+      // Log error or ignore if already disposed
+    }
   }
 
   Future<void> setLoopAnimation(bool loop) =>
